@@ -1,0 +1,27 @@
+[
+    {
+        "date": "2024-08-15",
+        "sets": [
+            {
+                "id": 1,
+                "description": "Erfiðir tímar",
+                "words": ["basl", "klandur", "vandi", "vesen"]
+            },
+            {
+                "id": 2,
+                "description": "Bankanum þínum er sama um þig",
+                "words": ["greiðslumat", "lán", "reikningur", "yfirdráttur"]
+            },
+            {
+                "id": 3,
+                "description": "Vatna-",
+                "words": ["bobbi", "garðar", "vextir", "far"]
+            },
+            {
+                "id": 4,
+                "description": "Vonandi skemmtiði ykkur vel",
+                "words": ["pallur", "tjald", "skógur", "fljót"]
+            }
+        ]
+    }
+]

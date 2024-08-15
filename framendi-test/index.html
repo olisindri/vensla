@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="is">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vensla</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" defer></script>
+    <script src="vensla.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@500&display=swap" rel="stylesheet">
+  </head>
+  <body class="flex items-center justify-center h-screen" style="font-family: 'Changa', sans-serif;">
+    <section id="vensla" class="w-4/5 text-center">
+      <h1 class="text-4xl font-bold mb-4">Vensla</h1>
+      <h2 v-show="puzzleDate" class="mb-8 mt-4">{{ puzzleDate }}</h2>
+      <div class="grid grid-cols-1 gap-4 mb-4">
+        <div v-for="solution in correctGuesses" :class="colours[solution['id']]" class="text-2xl rounded flex items-center justify-center h-24 uppercase">
+          <p class="mb-0">{{ solution['description'] }}<br />
+          <span class="text-sm mt-0">{{ solution['words'].join(', ') }}</span></p>
+        </div>
+      </div>
+      <div class="grid grid-cols-4 gap-4 mb-4">
+        <div v-for="word in words" @click="select(word, $event)" class="text-xl rounded bg-gray-100 flex items-center justify-center h-24 uppercase cursor-pointer" :class="{ 'bg-gray-500': selectedWords.includes(word) }">{{ word }}</div>
+      </div>
+      <div v-if="!done" class="flex justify-between items-center mt-8 mx-auto">
+        <div>
+          <button @click="clear" :disabled="(selectedWords.length === 0)" :class="{ 'bg-gray-200': (selectedWords.length === 0), 'hover:bg-gray-500': (selectedWords.length === 0) }" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">Hreinsa</button>
+          <button @click="shuffle" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">Stokka</button>
+        </div>
+        <button @click="checkGuess" :disabled="needsMore" :class="{ 'bg-gray-200': needsMore, 'hover:bg-gray-500': needsMore }" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Athuga</button>
+      </div>
+      <p v-if="(status && !done)">{{ status }}</p>
+      <p v-if="done">Til hamingju! Þú þurftir {{ guesses.length }} gisk samtals</p>
+      <p v-else>{{ wrongGuesses }} mistök</p>
+      <div v-if="done" class="text-4xl mt-8">
+        <p v-for="line in result">{{ line }}</p>
+        <button @click="copyResult" class="text-xl bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">Afrita</button>
+      </div>
+    </section>
+  </body>
+</html>
